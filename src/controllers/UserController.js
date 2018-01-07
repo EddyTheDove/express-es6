@@ -1,0 +1,97 @@
+import moment from 'moment'
+import Model from '../models/User'
+
+/**
+ * Load user and append to request
+ */
+function load (req, res, next, id) {
+    Model.get(id)
+    .then((result) => {
+        req.user = result;
+        return next()
+    })
+    .catch(e => next(e))
+}
+
+/**
+ * Get user
+ * @returns { User }
+ */
+function get (req, res) {
+    return res.json(req.user)
+}
+
+/**
+ * Create new user
+ * @returns { User }
+ */
+function store (req, res, next) {
+    const user = new Model({
+        email: req.body.email,
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        password: req.body.password,
+        created: moment()
+    })
+
+    user.save()
+    .then( saved => res.json(saved))
+    .catch(e => res.status(500).json(e))
+}
+
+/**
+ * Update an user
+ * @returns { User }
+ */
+function update (req, res, next) {
+    const user = req.user
+    user.email = req.body.email
+    user.firstname = req.body.firstname
+    user.lastname = req.body.lastname
+
+    user.save()
+    .then( saved => res.json(saved))
+    .catch(e => next(e))
+}
+
+/**
+ * List all entries
+ * @returns { User }
+ */
+ function list (req, res, next) {
+     const { limit = 50, skip = 0 } = req.query;
+     Model.listReverse({ limit, skip })
+     .then(result => res.json(result))
+     .catch(e => next(e));
+ }
+
+/**
+ * Delete user.
+ * @returns {User}
+ */
+ function remove(req, res, next) {
+     const user = req.user;
+     user.remove()
+     .then(deleted => res.json(deleted))
+     .catch(e => next(e));
+ }
+
+/**
+ * Authenticate a user
+ * @returns { User }
+ */
+async function login (req, res, next) {
+     const { email, password } = req.body
+
+     const user = await Model.findByKey({ email: email })
+     if (!user) {
+         res.status(403).json({ error: 'Please heck your credentials' })
+     }
+
+     if (password !== user.password) {
+         res.status(403).json({ error: 'Please check your credentials' })
+     }
+     res.json(user)
+ }
+
+export default { load, get, store, update, list, remove, login }

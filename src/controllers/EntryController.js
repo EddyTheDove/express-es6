@@ -1,4 +1,5 @@
-import Entry from '../models/entity/entry.model'
+import moment from 'moment'
+import Entry from '../models/Entry'
 
 /**
  * Load entry and append to request
@@ -26,8 +27,9 @@ function get (req, res) {
  */
 function store (req, res, next) {
     const entry = new Entry({
-        type: req.body.amount,
+        type: req.body.type,
         amount: req.body.amount,
+        created: moment()
     })
 
     entry.save()

@@ -4,9 +4,10 @@ const Schema = mongoose.Schema
 const EntrySchema = new Schema({
     name: { type: String, required: true },
     colour: String,
-    owner: Schema.ObjectId,
     created: Date,
-    updated: { type: Date, default: Date.now }
+    updated: { type: Date, default: Date.now },
+    owner: { type: Schema.Types.ObjectId, ref: 'User' },
+    subs: [{ type: Schema.Types.ObjectId, ref: 'Sub' }]
 })
 
 export default mongoose.model('Category', EntrySchema)

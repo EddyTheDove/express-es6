@@ -7,11 +7,11 @@ const EntrySchema = new Schema({
     date: Date,
     type: { type: String, lowercase: true },
     description: String,
-    sub: Schema.ObjectId,
-    category: Schema.ObjectId,
-    owner: Schema.ObjectId,
     created: Date,
-    updated: { type: Date, default: Date.now }
+    updated: { type: Date, default: Date.now },
+    sub: { type: Schema.Types.ObjectId, ref: 'Sub' },
+    owner: { type: Schema.Types.ObjectId, ref: 'User' },
+    category: { type: Schema.Types.ObjectId, ref: 'Category' }
 })
 
 // methods are avaialable on the document

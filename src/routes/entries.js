@@ -1,9 +1,11 @@
 import express from 'express'
-import entryController from '../controllers/entry.controller'
+import EntryController from '../controllers/EntryController'
+import EntryPolicy from '../policies/EntryPolicy'
+
 const router = express.Router()
 
 router.route('/')
-.get(entryController.list)
-.post(entryController.store)
+.get(EntryController.list)
+.post(EntryPolicy.store, EntryController.store)
 
 export default router
