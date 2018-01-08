@@ -11,7 +11,9 @@ const UserSchema = new Schema({
     updated: { type: Date, default: Date.now },
     password: { type: String },
     email: { type: String, unique: true, required: true, index: true },
-    token: { type: String, unique: true, index: true }
+    token: { type: String, unique: true, index: true },
+    income: Number,
+    expenses: Number
     // entries: [{ type: Schema.Types.ObjectId, ref: 'Entry' }],
     // categories: [{ type: Schema.Types.ObjectId, ref: 'Category' }]
 })
@@ -80,7 +82,9 @@ UserSchema.method({
             email: this.email,
             firstname: this.firstname,
             lastname: this.lastname,
-            token: this.token
+            token: this.token,
+            income: this.income,
+            expenses: this.expenses
         }
     }
 })

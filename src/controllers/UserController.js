@@ -76,22 +76,4 @@ function update (req, res, next) {
      .catch(e => next(e));
  }
 
-/**
- * Authenticate a user
- * @returns { User }
- */
-async function login (req, res, next) {
-     const { email, password } = req.body
-
-     const user = await Model.findByKey({ email: email })
-     if (!user) {
-         res.status(403).json({ error: 'Please heck your credentials' })
-     }
-
-     if (password !== user.password) {
-         res.status(403).json({ error: 'Please check your credentials' })
-     }
-     res.json(user)
- }
-
-export default { load, get, store, update, list, remove, login }
+export default { load, get, store, update, list, remove }
