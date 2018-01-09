@@ -11,9 +11,9 @@ const UserSchema = new Schema({
     updated: { type: Date, default: Date.now },
     password: { type: String },
     email: { type: String, unique: true, required: true, index: true },
-    token: { type: String, unique: true, index: true },
     income: Number,
-    expenses: Number
+    expenses: Number,
+    role: { type: String, enum: ['user', 'admin'], default: 'user' }
     // entries: [{ type: Schema.Types.ObjectId, ref: 'Entry' }],
     // categories: [{ type: Schema.Types.ObjectId, ref: 'Category' }]
 })
@@ -24,7 +24,7 @@ UserSchema.pre('save', function (next) {
     const user = this
 
     // only hash the password if it has been modified (or is new)
-    if (!user.isModified('password')) next()
+    if (!user.isModified('password')) return next()
 
     // generate a salt
     bcrypt.genSalt(saltRounds, function (err, salt) {
@@ -77,14 +77,15 @@ UserSchema.method({
         return bcrypt.compare(password, this.password)
     },
 
-    toJson () {
+    response () {
         return {
             email: this.email,
             firstname: this.firstname,
             lastname: this.lastname,
             token: this.token,
             income: this.income,
-            expenses: this.expenses
+            expenses: this.expenses,
+            role: this.role
         }
     }
 })

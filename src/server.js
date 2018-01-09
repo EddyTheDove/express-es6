@@ -30,10 +30,6 @@ app.use((err, req, res, next) => {
     })
 })
 
-router.use((req, res, next) => {
-    next()
-})
-
 app.use('/', express.static(__dirname + '/public'))
 app.use('/api', apiRoutes)
 

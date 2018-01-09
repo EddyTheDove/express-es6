@@ -39,6 +39,8 @@
     "mongodb": "^3.0.1",
     "mongoose": "^5.0.0-rc2",
     "morgan": "^1.9.0",
+    "passport": "^0.4.0",
+    "passport-jwt": "^3.0.1",
     "path": "^0.12.7",
     "sequelize": "^4.29.0"
   },

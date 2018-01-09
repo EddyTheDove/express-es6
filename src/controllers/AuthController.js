@@ -11,7 +11,7 @@ async function login (req, res, next) {
 
      const user = await User.findByKey({ email: email })
      if (!user) {
-         res.status(403).json({ error: 'Please heck your credentials' })
+         return res.status(403).json({ error: 'Please heck your credentials' })
      }
 
      const isPasswordValid = await user.comparePassword(password)
@@ -19,7 +19,7 @@ async function login (req, res, next) {
          res.status(403).json({ error: 'Please check your credentials' })
      } else {
          user.token = jwtSignUser(user)
-         res.json(user.toJson())
+         res.json(user.response())
      }
  }
 
@@ -34,7 +34,7 @@ function register (req, res, next) {
      })
 
      user.save()
-     .then( saved => res.json(saved.toJson()))
+     .then( saved => res.json(saved.response()))
      .catch(e => res.status(500).json(e))
  }
 
