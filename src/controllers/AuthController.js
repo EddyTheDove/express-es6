@@ -1,6 +1,6 @@
 import moment from 'moment'
 import User from '../models/User'
-import { jwtSignUser } from '../helpers'
+import { jwtSignUser } from '../helpers/jwtsign'
 
 /**
  * Authenticate a user
