@@ -58,12 +58,11 @@ function update (req, res, next) {
  * List all entries
  * @returns { User }
  */
- function list (req, res, next) {
-     const { limit = 50, skip = 0 } = req.query;
-     Model.listReverse({ limit, skip })
-     .then(result => res.json(result))
-     .catch(e => next(e));
- }
+const list = async (req, res, next) => {
+    const perPage = 5
+    const result = await Model.paginate(req, perPage)
+    return res.json(result)
+}
 
 /**
  * Delete user.

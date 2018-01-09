@@ -1,5 +1,7 @@
 import mongoose from 'mongoose'
 import Promise from 'bluebird'
+import { paginate } from '../helpers'
+
 const Schema = mongoose.Schema
 const bcrypt = require('bcrypt')
 const saltRounds = 10
@@ -66,7 +68,9 @@ UserSchema.statics = {
         .skip(+skip)
         .limit(+limit)
         .exec()
-    }
+    },
+
+    paginate
 }
 
 /**

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import Promise from 'bluebird'
+import { paginate } from '../helpers'
 const Schema = mongoose.Schema
 
 const EntrySchema = new Schema({
@@ -24,14 +24,20 @@ EntrySchema.statics = {
         .exec()
     },
 
+    total () {
+        return this.count().exec()
+    },
 
-    listReverse ({ skip = 0, limit = 0 } = {}) {
+    list ({ page = 1, limit = 10 } = {}) {
+        const skip = limit * (page - 1)
         return this.find()
         .sort({ created: -1 })
         .skip(+skip)
         .limit(+limit)
         .exec()
-    }
+    },
+
+    paginate
 }
 
 export default mongoose.model('Entry', EntrySchema)
