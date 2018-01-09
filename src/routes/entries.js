@@ -1,5 +1,5 @@
 import express from 'express'
-import EntryController from '../controllers/EntryController'
+import { EntryController } from '../controllers'
 import { entryValidator } from '../validators'
 
 const router = express.Router()

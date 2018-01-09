@@ -39,4 +39,4 @@ function register (req, res, next) {
  }
 
 
- export default { login, register }
+ export const AuthController = { login, register }

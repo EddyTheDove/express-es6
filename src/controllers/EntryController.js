@@ -74,4 +74,4 @@ function update (req, res, next) {
      .catch(e => next(e));
  }
 
-export default { load, get, store, update, list, remove }
+export const EntryController = { load, get, store, update, list, remove }
