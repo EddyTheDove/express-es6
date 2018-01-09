@@ -29,6 +29,7 @@ function store (req, res, next) {
     const entry = new Entry({
         type: req.body.type,
         amount: req.body.amount,
+        description: req.body.description,
         created: moment()
     })
 
