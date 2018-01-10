@@ -1,6 +1,4 @@
-import mongoose from 'mongoose'
-import Promise from 'bluebird'
-import { paginate } from '../helpers'
+import mongoose from './mongoose'
 
 const Schema = mongoose.Schema
 const bcrypt = require('bcrypt')
@@ -68,9 +66,7 @@ UserSchema.statics = {
         .skip(+skip)
         .limit(+limit)
         .exec()
-    },
-
-    paginate
+    }
 }
 
 /**

@@ -1,5 +1,4 @@
-import mongoose from 'mongoose'
-import { paginate } from '../helpers'
+import mongoose from './mongoose'
 const Schema = mongoose.Schema
 
 const EntrySchema = new Schema({
@@ -35,9 +34,7 @@ EntrySchema.statics = {
         .skip(+skip)
         .limit(+limit)
         .exec()
-    },
-
-    paginate
+    }
 }
 
 export default mongoose.model('Entry', EntrySchema)
