@@ -1,7 +1,7 @@
-import mongoose from 'mongoose'
+import mongoose from './mongoose'
 const Schema = mongoose.Schema
 
-const EntrySchema = new Schema({
+const CategorySchema = new Schema({
     name: { type: String, required: true },
     colour: String,
     created: Date,
@@ -10,4 +10,4 @@ const EntrySchema = new Schema({
     subs: [{ type: Schema.Types.ObjectId, ref: 'Sub' }]
 })
 
-export default mongoose.model('Category', EntrySchema)
+export default mongoose.model('Category', CategorySchema)

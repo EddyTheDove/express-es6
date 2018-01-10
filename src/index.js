@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 import config from './config'
 import app from './server'
+import moment from 'moment'
 
 // Connect to DB
 mongoose.connect(config.mongodb)
@@ -11,7 +12,7 @@ mongoose.connection.on('error', () => {
 // Launch server
 if (!module.parent) {
     app.listen(config.port, () => {
-        console.log(`App is listening on port ${ config.port }`)
+        console.log(`App is listening on port ${ config.port } : ${ moment().format('HH:mm:ss') }`)
     })
 }
 
