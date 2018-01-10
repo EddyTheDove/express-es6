@@ -30,7 +30,8 @@ function store (req, res, next) {
         type: req.body.type,
         amount: req.body.amount,
         description: req.body.description,
-        created: moment()
+        created: moment(),
+        owner: req.user.id
     })
 
     entry.save()

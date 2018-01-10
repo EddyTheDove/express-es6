@@ -22,6 +22,7 @@ router.use( (req, res, next) => {
             console.log('No user found in JWT', info);
             return res.status(401).send('Unauthorized')
         }
+        req.user = user
         next()
     })(req, res, next)
 })
