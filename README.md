@@ -1,20 +1,20 @@
-### Mongoose db seeder commands
+## Mongoose db seeder commands
 `mongoose-data-seed`
 
-## Install
+### Install
 `npm-run`
 
-## Init
+### Init
 `npm-run md-seed init`
 
-## Generate users seeder
+### Generate users seeder
 `npm-run md-seed g users`
 
-## Run all seeders
+### Run all seeders
 `npm-run md-seed run`
 
-## Drop the table before seeding
+### Drop the table before seeding
 `npm-run md-seed run --dropdb`
 
-## Run specific seeders
+### Run specific seeders
 `npm-run md-seed run users posts comments`

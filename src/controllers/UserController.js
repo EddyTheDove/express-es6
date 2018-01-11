@@ -59,8 +59,7 @@ function update (req, res, next) {
  * @returns { User }
  */
 const list = async (req, res, next) => {
-    const perPage = 5
-    const result = await Model.paginate(req, perPage)
+    const result = await Model.list()
     return res.json(result)
 }
 

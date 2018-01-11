@@ -1,6 +1,5 @@
 import { Seeder } from 'mongoose-data-seed';
-import { User } from '../models';
-import { Category } from '../models';
+import { Category, User } from '../models';
 
 const data = [
     { name: 'House', colour: '#08c' },

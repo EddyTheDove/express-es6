@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 
 const EntrySchema = new Schema({
     amount: { type: Number, required: true },
-    date: Date,
+    date: { type: Date, default: Date.now },
     type: { type: String, lowercase: true },
     description: String,
     created: Date,
@@ -29,10 +29,13 @@ EntrySchema.statics = {
 
     list ({ page = 1, limit = 10 } = {}) {
         const skip = limit * (page - 1)
+
         return this.find()
         .sort({ created: -1 })
         .skip(+skip)
         .limit(+limit)
+        .populate('sub', '_id name')
+        .populate('category', '_id name')
         .exec()
     }
 }

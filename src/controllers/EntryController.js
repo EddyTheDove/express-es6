@@ -1,5 +1,5 @@
 import moment from 'moment'
-import Entry from '../models/Entry'
+import { Sub, User, Entry, Category } from '../models'
 
 /**
  * Load entry and append to request
@@ -57,9 +57,20 @@ function update (req, res, next) {
  * List all entries
  * @returns { Entry }
  */
+
 const list = async (req, res, next) => {
-    const result = await Entry.paginate(req, 5)
-    return res.json(result)
+    let page = req.query.page || 1
+    let limit = req.query.limit || 5
+
+    try {
+        const data = await Entry.list(req, limit)
+        const result = await Entry.paginator(req, limit, data)
+        return res.json(result)
+    }
+    catch (e) {
+        console.log('Query error => ', e)
+        return res.status(500).send(e)
+    }
 }
 
 /**

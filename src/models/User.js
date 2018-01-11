@@ -14,8 +14,6 @@ const UserSchema = new Schema({
     income: Number,
     expenses: Number,
     role: { type: String, enum: ['user', 'admin'], default: 'user' }
-    // entries: [{ type: Schema.Types.ObjectId, ref: 'Entry' }],
-    // categories: [{ type: Schema.Types.ObjectId, ref: 'Category' }]
 })
 
 
@@ -90,4 +88,4 @@ UserSchema.method({
     }
 })
 
-export default mongoose.model('User', UserSchema)
+module.exports = mongoose.model('User', UserSchema)

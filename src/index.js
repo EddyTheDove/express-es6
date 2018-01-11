@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import mongoose from './models/mongoose'
 import config from './config'
 import app from './server'
 import moment from 'moment'
