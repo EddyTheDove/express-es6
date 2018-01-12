@@ -4,7 +4,7 @@ import authRoutes from './auth'
 import usersRoutes from './users'
 import entriesRoutes from './entries'
 import passportStrategy from '../helpers/passport'
-import { AuthMiddleware } from '../middlewares'
+import { AuthMiddleware, ActiveMiddleware } from '../middlewares'
 
 // Router
 const app = express()
@@ -18,6 +18,9 @@ router.use('/auth', authRoutes)
 
 // Authentication middleware
 router.use(AuthMiddleware)
+
+// Only active account can access subsequent routes
+router.use(ActiveMiddleware)
 
 
 router.use('/users', usersRoutes)

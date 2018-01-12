@@ -13,7 +13,8 @@ const UserSchema = new Schema({
     email: { type: String, unique: true, required: true, index: true },
     income: Number,
     expenses: Number,
-    role: { type: String, enum: ['user', 'admin'], default: 'user' }
+    role: { type: String, enum: ['user', 'admin'], default: 'user' },
+    is_active: { type: Boolean, default: true }
 })
 
 
@@ -83,7 +84,8 @@ UserSchema.method({
             token: this.token,
             income: this.income,
             expenses: this.expenses,
-            role: this.role
+            role: this.role,
+            is_active: this.is_active
         }
     }
 })

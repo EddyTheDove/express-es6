@@ -10,9 +10,8 @@ const options = {
 }
 
 passport.use(new JwtStrategy(options, function (payload, done) {
-    User.findOne({ id: payload.user.id }, function (error, user) {
+    User.findOne({ _id: payload.user._id }, function (error, user) {
         if (error) return done(error, false)
-
         if (user) return done(null, user)
         else return done(null, false)
     })

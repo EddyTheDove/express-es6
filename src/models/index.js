@@ -1,4 +1,6 @@
-export Sub from './Sub'
-export User from './User'
-export Entry from './Entry'
-export Category from './Category'
+import Sub from './Sub'
+import User from './User'
+import Entry from './Entry'
+import Category from './Category'
+
+export { Sub, User, Entry, Category }
