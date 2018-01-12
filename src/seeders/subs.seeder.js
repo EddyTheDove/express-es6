@@ -1,6 +1,5 @@
-import { Seeder } from 'mongoose-data-seed';
-import { Sub } from '../models';
-import { Category } from '../models';
+import { Seeder } from 'mongoose-data-seed'
+import { Sub, Category } from '../models'
 
 const house = [{ name: 'Rent' }, { name: 'Electricity' }, { name: 'Internet' }]
 const car = [{ name: 'Insurance' }, { name: 'Servicing' }, { name: 'Fuel' }]

@@ -1,0 +1,38 @@
+module.exports = function (schema, options) {
+    schema.statics.paginator = async function (req, limit, data) {
+        let page = req.query.page || 1
+        let skip = limit * (page - 1)
+
+        try {
+            const total = await this.count().exec()
+            let totalPages = Math.round(total / limit)
+
+            // Minimum number of pages should be 1
+            if (totalPages === 0) {
+                if (total > 0) {
+                    totalPages = 1
+                }
+            }
+
+            // Define the full url for next page
+            let nextUrl = req.protocol + '://' + req.get('host') + req.originalUrl
+            let nextPage = totalPages > page ? page + 1 : null
+            if (nextPage) {
+                nextUrl += '?page=' + nextPage
+            }
+
+            return {
+                total: total,
+                per_page: limit,
+                current_page: page,
+                pages_count: totalPages,
+                next_page: nextPage ? nextUrl : null,
+                data: data
+            }
+        }
+        catch(error) {
+            console.log(error)
+            return error
+        }
+    }
+}

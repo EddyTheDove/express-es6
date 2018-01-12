@@ -1,5 +1,4 @@
-const mongoose = require('mongoose')
-import paginate from './paginate.plugin'
+import mongoose from 'mongoose'
+mongoose.plugin(require('./paginator.plugin'))
 
-mongoose.plugin(paginate)
 export default mongoose
