@@ -18,7 +18,7 @@ async function login (req, res, next) {
      if (!isPasswordValid) {
          res.status(403).json({ error: 'Please check your credentials' })
      } else {
-         user.token = jwtSignUser(user)
+         user.token = jwtSignUser({ _id: user.id, password: user.password })
          res.json(user.response())
      }
  }
