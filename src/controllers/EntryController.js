@@ -73,6 +73,26 @@ const list = async (req, res, next) => {
     }
 }
 
+
+/**
+ * List a user's entries
+ */
+const userEntries = async (req, res, next) => {
+    const user = req.user
+    let page = req.query.page || 1
+    let limit = req.query.limit || 5
+
+    try {
+        const data = await Entry.list({ owner: user.id, req, limit })
+        const result = await Entry.paginator(user.id, req, limit, data)
+        return res.json(result)
+    }
+    catch (e) {
+        console.log('Query error => ', e)
+        return res.status(500).send(e)
+    }
+}
+
 /**
  * Delete user.
  * @returns {User}
@@ -84,4 +104,4 @@ const list = async (req, res, next) => {
      .catch(e => next(e));
  }
 
-export const EntryController = { load, get, store, update, list, remove }
+export const EntryController = { load, get, store, update, list, remove, userEntries }

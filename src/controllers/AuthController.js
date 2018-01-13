@@ -23,6 +23,15 @@ async function login (req, res, next) {
      }
  }
 
+ const auth = async (req, res, next) => {
+     try {
+         const user = req.user
+         res.json(user.response())
+     } catch (error) {
+         res.status(500).send(error)
+     }
+ }
+
 // Register
 function register (req, res, next) {
      const user = new User({
@@ -39,4 +48,4 @@ function register (req, res, next) {
  }
 
 
- export const AuthController = { login, register }
+ export const AuthController = { login, register, auth }

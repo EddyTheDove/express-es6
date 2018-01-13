@@ -1,10 +1,14 @@
 module.exports = function (schema, options) {
-    schema.statics.paginator = async function (req, limit, data) {
+    schema.statics.paginator = async function (owner, req, limit, data) {
         let page = req.query.page || 1
         let skip = limit * (page - 1)
 
         try {
-            const total = await this.count().exec()
+            const total = await this.where('owner')
+            .equals(owner)
+            .count()
+            .exec()
+            
             let totalPages = Math.round(total / limit)
 
             // Minimum number of pages should be 1

@@ -15,6 +15,14 @@ const UserSchema = new Schema({
     expenses: Number,
     role: { type: String, enum: ['user', 'admin'], default: 'user' },
     is_active: { type: Boolean, default: true }
+}, { toJSON: { virtuals: true } }) //Set virtuals to true
+
+// HasMany
+UserSchema.virtual('entries', {
+    ref: 'Entry',
+    localField: '_id',
+    foreignField: 'owner',
+    justOne: false
 })
 
 
@@ -65,6 +73,13 @@ UserSchema.statics = {
         .skip(+skip)
         .limit(+limit)
         .exec()
+    },
+
+    entries ({ id, req, limit = 0 } = {}) {
+        console.log('user id', id)
+        return this.findOne({_id: id})
+        .populate('entries')
+        .exec()
     }
 }
 
@@ -78,6 +93,7 @@ UserSchema.method({
 
     response () {
         return {
+            id: this._id,
             email: this.email,
             firstname: this.firstname,
             lastname: this.lastname,

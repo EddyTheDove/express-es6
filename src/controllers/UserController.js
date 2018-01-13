@@ -1,11 +1,11 @@
 import moment from 'moment'
-import Model from '../models/User'
+import { User, Entry } from '../models'
 
 /**
  * Load user and append to request
  */
 function load (req, res, next, id) {
-    Model.get(id)
+    User.get(id)
     .then((result) => {
         req.user = result;
         return next()
@@ -26,7 +26,7 @@ function get (req, res) {
  * @returns { User }
  */
 function store (req, res, next) {
-    const user = new Model({
+    const user = new User({
         email: req.body.email,
         firstname: req.body.firstname,
         lastname: req.body.lastname,
@@ -55,12 +55,31 @@ function update (req, res, next) {
 }
 
 /**
- * List all entries
+ * List all users
  * @returns { User }
  */
 const list = async (req, res, next) => {
-    const result = await Model.list()
+    const result = await User.list()
     return res.json(result)
+}
+
+/**
+ * List a user's entries
+ */
+const userEntries = async (req, res, next) => {
+    const user = req.user
+    let page = req.query.page || 1
+    let limit = req.query.limit || 5
+
+    try {
+        const data = await User.entries({ id: user.id, req, limit })
+        // const result = await Entry.paginator(req, limit, data)
+        return res.json(data)
+    }
+    catch (e) {
+        console.log('Query error => ', e)
+        return res.status(500).send(e)
+    }
 }
 
 /**

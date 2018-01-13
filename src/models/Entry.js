@@ -27,17 +27,17 @@ EntrySchema.statics = {
         return this.count().exec()
     },
 
-    list ({ page = 1, limit = 10 } = {}) {
+    list ({ owner, page = 1, limit = 10 } = {}) {
         const skip = limit * (page - 1)
 
-        return this.find()
+        return this.find({ owner })
         .sort({ created: -1 })
         .skip(+skip)
         .limit(+limit)
         .populate('sub', '_id name')
         .populate('category', '_id name')
         .exec()
-    }
+    },
 }
 
 export default mongoose.model('Entry', EntrySchema)

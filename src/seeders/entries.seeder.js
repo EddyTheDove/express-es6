@@ -18,19 +18,19 @@ class EntriesSeeder extends Seeder {
                 amount: 3000.00,
                 type: "income",
                 description: "Mama's deposit",
-                ownder: this.categories[0].owner.id
+                owner: this.categories[0].owner.id
             },
             {
                 amount: 360.00,
                 type: 'expense',
-                ownder: this.categories[0].owner.id,
+                owner: this.categories[0].owner.id,
                 category: this.categories[0].id,
                 sub: this.categories[0].subs[0].id
             },
             {
                 amount: 19.50,
                 type: 'expense',
-                ownder: this.categories[1].owner.id,
+                owner: this.categories[1].owner.id,
                 category: this.categories[1].id,
                 description: "Bought some candies for trick and treat"
             }
