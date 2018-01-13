@@ -23,8 +23,13 @@ EntrySchema.statics = {
         .exec()
     },
 
-    total () {
-        return this.count().exec()
+    total ({ owner = null} = {}) {
+        let query = this.count()
+
+        if (owner) {
+            query = query.where('owner').equals(owner)
+        }
+        return query.exec()
     },
 
     list ({ owner, page = 1, limit = 10 } = {}) {
