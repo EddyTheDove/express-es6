@@ -96,7 +96,7 @@ UserSchema.method({
         } else {
             this.expenses += parseFloat(amount)
         }
-        return this
+        return this.save()
     },
 
     response () {

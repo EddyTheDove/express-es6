@@ -16,11 +16,11 @@ class SubsSeeder extends Seeder {
     async run() {
         const finals = []
         car.map(c => {
-            c.category = this.cats[1].id
+            c.category = this.cats[0].id
             finals.push(c)
         })
         house.map(c => {
-            c.category = this.cats[0].id
+            c.category = this.cats[1].id
             finals.push(c)
         })
 

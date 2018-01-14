@@ -32,15 +32,19 @@ const store = async (req, res, next) => {
         amount: req.body.amount,
         description: req.body.description,
         created: moment(),
+        date: moment(req.body.date),
         owner: req.user.id
     })
+
+    if (req.body.category) entry.category = req.body.category
+    if (req.body.sub) entry.sub = req.body.sub
 
     try {
         const savedEntry = await entry.save()
         const user = req.user
         const balance = await user.increaseBalance({
-            type: saved.type,
-            amount: saved.amount
+            type: savedEntry.type,
+            amount: savedEntry.amount
         })
         return res.json(savedEntry)
     } catch (e) {
