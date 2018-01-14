@@ -6,7 +6,7 @@ const car = [{ name: 'Insurance' }, { name: 'Servicing' }, { name: 'Fuel' }]
 
 class SubsSeeder extends Seeder {
     async beforeRun() {
-        this.cats = await Category.find().exec()
+        this.cats = await Category.find().sort({ name: 1 }).exec()
     }
 
     async shouldRun() {

@@ -95,7 +95,7 @@ const userEntries = async (req, res, next) => {
     try {
         const data = await Entry.list({ owner: user.id, req, limit })
         const total = await Entry.total({ owner: user.id })
-        const result = await Entry.paginator({ req, limit, data, total })
+        const result = await Entry.paginate({ req, limit, data, total })
         return res.json(result)
     }
     catch (e) {

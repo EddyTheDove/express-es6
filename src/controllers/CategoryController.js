@@ -18,11 +18,6 @@ const store = async (req, res, next) => {
 
     try {
         const savedEntry = await entry.save()
-        const user = req.user
-        const balance = await user.increaseBalance({
-            type: saved.type,
-            amount: saved.amount
-        })
         return res.json(savedEntry)
     } catch (e) {
         console.log('Query error => ', e)
@@ -41,8 +36,8 @@ const list = async (req, res, next) => {
     let limit = req.query.limit || 5
 
     try {
-        const data = await Entry.list(req, limit)
-        const result = await Entry.paginator(req, limit, data)
+        const data = await Category.list(req, limit)
+        const result = await Category.paginate(req, limit, data)
         return res.json(result)
     }
     catch (e) {
@@ -62,9 +57,7 @@ const userCategories = async (req, res, next) => {
 
     try {
         const data = await Category.list({ owner: user.id, req, limit })
-        const total = await Category.total({ owner: user.id })
-        const result = await Category.paginate({ req, limit, data, total })
-        return res.json(result)
+        return res.json(data)
     }
     catch (e) {
         console.log('Query error => ', e)

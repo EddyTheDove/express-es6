@@ -76,7 +76,6 @@ UserSchema.statics = {
     },
 
     entries ({ id, req, limit = 0 } = {}) {
-        console.log('user id', id)
         return this.findOne({_id: id})
         .populate('entries')
         .exec()

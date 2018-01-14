@@ -4,10 +4,10 @@ const Schema = mongoose.Schema
 const CategorySchema = new Schema({
     name: { type: String, required: true },
     colour: { type: String, default: '#2872d7' },
-    created: Date,
+    created: { type: Date, default: Date.now },
     updated: { type: Date, default: Date.now },
     owner: { type: Schema.Types.ObjectId, ref: 'User' }
-})
+}, { toJSON: { virtuals: true } })
 
 // HasMany entries
 CategorySchema.virtual('entries', {
@@ -29,12 +29,11 @@ CategorySchema.virtual('subs', {
 CategorySchema.statics = {
     list ({ owner, page = 1, limit = 10 } = {}) {
         const skip = limit * (page - 1)
-
         return this.find({ owner })
+        .populate('subs')
         .sort({ name: 1 })
         .skip(+skip)
         .limit(+limit)
-        .populate('sub', '_id name')
         .exec()
     }
 }
