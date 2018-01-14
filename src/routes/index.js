@@ -3,6 +3,7 @@ import passport from 'passport'
 import authRoutes from './auth'
 import usersRoutes from './users'
 import entriesRoutes from './entries'
+import categoriesRoutes from './categories'
 import passportStrategy from '../helpers/passport'
 import { AuthMiddleware, ActiveMiddleware } from '../middlewares'
 
@@ -25,5 +26,6 @@ router.use(ActiveMiddleware)
 
 router.use('/users', usersRoutes)
 router.use('/entries', entriesRoutes)
+router.use('/categories', categoriesRoutes)
 
 export default router

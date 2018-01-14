@@ -7,7 +7,9 @@ const data = [
         password: 'pass',
         firstname: 'John',
         lastname: 'Doe',
-        role: 'user'
+        role: 'user',
+        income: 3000,
+        expenses: 379.50
     },
     {
         email: 'jane@email.com',

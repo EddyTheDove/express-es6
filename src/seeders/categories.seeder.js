@@ -9,7 +9,7 @@ const data = [
 
 class CategoriesSeeder extends Seeder {
     async beforeRun() {
-        this.users = await User.find().exec()
+        this.user = await User.findOne({ email: 'user@email.com' }).exec()
     }
 
     async shouldRun() {
@@ -19,7 +19,7 @@ class CategoriesSeeder extends Seeder {
 
     async run() {
         data.map(c => {
-            c.owner = this.users[0].id
+            c.owner = this.user.id
         })
         return Category.create(data)
     }

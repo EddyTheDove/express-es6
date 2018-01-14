@@ -7,7 +7,7 @@ const saltRounds = 10
 const UserSchema = new Schema({
     firstname: String,
     lastname: String,
-    created: Date,
+    created: { type: Date, default: Date.now },
     updated: { type: Date, default: Date.now },
     password: { type: String },
     email: { type: String, unique: true, required: true, index: true },
@@ -17,7 +17,7 @@ const UserSchema = new Schema({
     is_active: { type: Boolean, default: true }
 }, { toJSON: { virtuals: true } }) //Set virtuals to true
 
-// HasMany
+// HasMany Entries
 UserSchema.virtual('entries', {
     ref: 'Entry',
     localField: '_id',
@@ -89,6 +89,15 @@ UserSchema.statics = {
 UserSchema.method({
     comparePassword (password) {
         return bcrypt.compare(password, this.password)
+    },
+
+    increaseBalance ({ type, amount } = {}) {
+        if ('income' === type) {
+            this.income += parseFloat(amount)
+        } else {
+            this.expenses += parseFloat(amount)
+        }
+        return this
     },
 
     response () {
