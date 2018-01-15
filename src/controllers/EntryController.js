@@ -2,26 +2,6 @@ import moment from 'moment'
 import { Sub, User, Entry, Category } from '../models'
 
 /**
- * Load entry and append to request
- */
-function load (req, res, next, id) {
-    Entry.get(id)
-    .then((result) => {
-        req.entry = result;
-        return next()
-    })
-    .catch(e => next(e))
-}
-
-/**
- * Get entry
- * @returns { Entry }
- */
-function get (req, res) {
-    return res.json(req.entry)
-}
-
-/**
  * Create new entry
  * @returns { Entry }
  */
@@ -51,20 +31,6 @@ const store = async (req, res, next) => {
         console.log('Query error => ', e)
         return res.status(500).send(e)
     }
-}
-
-/**
- * Update an entry
- * @returns { Entry }
- */
-function update (req, res, next) {
-    const entry = req.entry
-    entry.type = req.body.type
-    entry.amount = req.body.amount
-
-    entry.save()
-    .then( saved => res.json(saved))
-    .catch(e => next(e))
 }
 
 /**
@@ -119,4 +85,4 @@ const userEntries = async (req, res, next) => {
      .catch(e => next(e));
  }
 
-export const EntryController = { load, get, store, update, list, remove, userEntries }
+export const EntryController = { store, list, remove, userEntries }

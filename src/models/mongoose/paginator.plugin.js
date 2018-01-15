@@ -1,10 +1,10 @@
 module.exports = function (schema, options) {
-    schema.statics.paginate = async function ({req, limit, data, total} = {}) {
+    schema.statics.paginate = async function ({ req, limit, data, total } = {}) {
         let page = req.query.page || 1
         let skip = limit * (page - 1)
 
         try {
-            let totalPages = Math.round(total / limit)
+            let totalPages = Math.ceil(total / limit)
 
             // Minimum number of pages should be 1
             if (totalPages === 0) {
