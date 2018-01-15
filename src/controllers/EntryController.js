@@ -32,7 +32,7 @@ const store = async (req, res, next) => {
         amount: req.body.amount,
         description: req.body.description,
         created: moment(),
-        date: moment(req.body.date),
+        date: req.body.date,
         owner: req.user.id
     })
 

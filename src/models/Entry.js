@@ -27,7 +27,7 @@ EntrySchema.statics = {
         const skip = limit * (page - 1)
 
         return this.find({ owner })
-        .sort({ created: -1 })
+        .sort({ date: -1, created: -1 })
         .skip(+skip)
         .limit(+limit)
         .populate('sub', '_id name')
