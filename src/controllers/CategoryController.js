@@ -8,17 +8,37 @@ import { Sub, User, Entry, Category } from '../models'
  */
 
 const store = async (req, res, next) => {
-    const entry = new Entry({
-        type: req.body.type,
-        amount: req.body.amount,
-        description: req.body.description,
+    // Avoid duplicated categories
+    const categoryNameIsTake = Category.findOne({
+        name: req.body.name,
+        user: req.user.id
+    })
+
+    if (categoryNameIsTake) {
+        return res.status(400).json('That category already exists')
+    }
+
+    const category = new Category({
+        name: req.body.name,
+        colour: req.body.colour,
         created: moment(),
         owner: req.user.id
     })
 
+    let subs = req.body.subs
+
     try {
-        const savedEntry = await entry.save()
-        return res.json(savedEntry)
+        const savedCategory = await category.save()
+
+        if (subs.length) {
+            subs.forEach(s => {
+                s.owner = req.user.id
+                s.category = savedCategory.id
+            })
+            await Sub.create(subs)
+        }
+
+        return res.json(savedCategory)
     } catch (e) {
         console.log('Query error => ', e)
         return res.status(500).send(e)
