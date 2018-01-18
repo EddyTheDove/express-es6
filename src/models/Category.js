@@ -27,13 +27,10 @@ CategorySchema.virtual('subs', {
 
 // Model methods
 CategorySchema.statics = {
-    list ({ owner, page = 1, limit = 10 } = {}) {
-        const skip = limit * (page - 1)
+    list ({ owner } = {})  {
         return this.find({ owner })
         .populate('subs')
         .sort({ name: 1 })
-        .skip(+skip)
-        .limit(+limit)
         .exec()
     }
 }

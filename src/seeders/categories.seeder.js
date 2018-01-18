@@ -2,9 +2,9 @@ import { Seeder } from 'mongoose-data-seed';
 import { Category, User } from '../models';
 
 const data = [
-    { name: 'House', colour: '#08c' },
-    { name: 'Car', colour: '#f80' },
-    { name: 'Miscellaneous', colour: 'pink' }
+    { name: 'House', colour: '#0088cc' },
+    { name: 'Car', colour: '#f122d6' },
+    { name: 'Miscellaneous', colour: '#f39c12' }
 ];
 
 class CategoriesSeeder extends Seeder {

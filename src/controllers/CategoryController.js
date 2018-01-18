@@ -9,12 +9,13 @@ import { Sub, User, Entry, Category } from '../models'
 
 const store = async (req, res, next) => {
     // Avoid duplicated categories
-    const categoryNameIsTake = Category.findOne({
+    const categoryNameIsTaken = await Category.findOne({
         name: req.body.name,
         user: req.user.id
-    })
+    }).exec()
 
-    if (categoryNameIsTake) {
+    if (categoryNameIsTaken) {
+        console.log('name taken', categoryNameIsTaken)
         return res.status(400).json('That category already exists')
     }
 
@@ -72,11 +73,9 @@ const list = async (req, res, next) => {
  */
 const userCategories = async (req, res, next) => {
     const user = req.user
-    let page = req.query.page || 1
-    let limit = req.query.limit || 5
 
     try {
-        const data = await Category.list({ owner: user.id, req, limit })
+        const data = await Category.list({ owner: user.id })
         return res.json(data)
     }
     catch (e) {
