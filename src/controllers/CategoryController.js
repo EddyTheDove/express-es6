@@ -15,7 +15,6 @@ const store = async (req, res, next) => {
     }).exec()
 
     if (categoryNameIsTaken) {
-        console.log('name taken', categoryNameIsTaken)
         return res.status(400).json('That category already exists')
     }
 
@@ -40,6 +39,26 @@ const store = async (req, res, next) => {
         }
 
         return res.json(savedCategory)
+    } catch (e) {
+        console.log('Query error => ', e)
+        return res.status(500).send(e)
+    }
+}
+
+
+
+const update = async (req, res, next) => {
+    try {
+        const category = await Category.findById(req.params.id).exec()
+        if (!category) {
+            return res.status(404).json('No category found')
+        }
+
+        category.name = req.body.name
+        category.colour = req.body.colour
+        await category.save()
+
+        res.json(category)
     } catch (e) {
         console.log('Query error => ', e)
         return res.status(500).send(e)
@@ -85,4 +104,4 @@ const userCategories = async (req, res, next) => {
 }
 
 
-export const CategoryController = { store, list, userCategories }
+export const CategoryController = { store, list, userCategories, update }

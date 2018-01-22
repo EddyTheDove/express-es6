@@ -8,4 +8,6 @@ router.route('/')
 .get(CategoryController.userCategories)
 .post(categoryValidator.store, CategoryController.store)
 
+router.put('/:id', categoryValidator.store, CategoryController.update)
+
 export default router

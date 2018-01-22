@@ -1,5 +1,6 @@
 import express from 'express'
 import passport from 'passport'
+import subRoutes from './subs'
 import authRoutes from './auth'
 import usersRoutes from './users'
 import entriesRoutes from './entries'
@@ -24,6 +25,7 @@ router.use(AuthMiddleware)
 router.use(ActiveMiddleware)
 
 
+router.use('/subs', subRoutes)
 router.use('/users', usersRoutes)
 router.use('/entries', entriesRoutes)
 router.use('/categories', categoriesRoutes)
