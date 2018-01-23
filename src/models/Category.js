@@ -10,20 +10,20 @@ const CategorySchema = new Schema({
 }, { toJSON: { virtuals: true } })
 
 // HasMany entries
-CategorySchema.virtual('entries', {
-    ref: 'Entry',
-    localField: '_id',
-    foreignField: 'category',
-    justOne: false
-})
+// CategorySchema.virtual('entries', {
+//     ref: 'Entry',
+//     localField: '_id',
+//     foreignField: 'category',
+//     justOne: false
+// })
 
 // HasMany subs
-CategorySchema.virtual('subs', {
-    ref: 'Sub',
-    localField: '_id',
-    foreignField: 'category',
-    justOne: false
-})
+// CategorySchema.virtual('subs', {
+//     ref: 'Sub',
+//     localField: '_id',
+//     foreignField: 'category',
+//     justOne: false
+// })
 
 // Model methods
 CategorySchema.statics = {

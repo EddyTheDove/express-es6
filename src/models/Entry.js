@@ -1,5 +1,6 @@
 import mongoose from './mongoose'
 const Schema = mongoose.Schema
+// mongoose.set('debug', true) // See the query being sent to mongoose
 
 const EntrySchema = new Schema({
     amount: { type: Number, required: true },

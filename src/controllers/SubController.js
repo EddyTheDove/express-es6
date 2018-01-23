@@ -1,4 +1,3 @@
-import moment from 'moment'
 import { Sub, User, Entry, Category } from '../models'
 
 /**
