@@ -18,12 +18,12 @@ const CategorySchema = new Schema({
 // })
 
 // HasMany subs
-// CategorySchema.virtual('subs', {
-//     ref: 'Sub',
-//     localField: '_id',
-//     foreignField: 'category',
-//     justOne: false
-// })
+CategorySchema.virtual('subs', {
+    ref: 'Sub',
+    localField: '_id',
+    foreignField: 'category',
+    justOne: false
+})
 
 // Model methods
 CategorySchema.statics = {

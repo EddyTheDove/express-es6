@@ -17,7 +17,7 @@ const monthly = async (req, res, next) => {
         })
         .select('amount type')
         .populate('sub', 'name')
-        .populate('category', 'name')
+        .populate('category', 'name colour')
         .exec()
 
         if (entries.length) {
