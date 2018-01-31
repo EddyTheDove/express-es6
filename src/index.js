@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import mongoose from './models/mongoose'
 import config from './config'
 import app from './server'

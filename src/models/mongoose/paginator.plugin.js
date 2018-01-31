@@ -1,5 +1,5 @@
 module.exports = function (schema, options) {
-    schema.statics.paginate = async function ({ req, limit, data, total } = {}) {
+    schema.statics.paginate = function ({ req, limit, data, total } = {}) {
         let page = req.query.page || 1
 
         try {
