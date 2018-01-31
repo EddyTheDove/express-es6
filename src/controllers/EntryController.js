@@ -59,11 +59,11 @@ const list = async (req, res, next) => {
  */
 const userEntries = async (req, res, next) => {
     const user = req.user
-    let page = req.query.page || 1
-    let limit = req.query.limit || 5
+    const page = req.query.page || 1
+    const limit = req.query.limit || 5
 
     try {
-        const data = await Entry.list({ owner: user.id, req, limit })
+        const data = await Entry.list({ owner: user.id, page, limit })
         const total = await Entry.total({ owner: user.id })
         const result = await Entry.paginate({ req, limit, data, total })
         return res.json(result)

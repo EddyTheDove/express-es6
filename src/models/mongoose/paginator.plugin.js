@@ -1,7 +1,6 @@
 module.exports = function (schema, options) {
     schema.statics.paginate = async function ({ req, limit, data, total } = {}) {
         let page = req.query.page || 1
-        let skip = limit * (page - 1)
 
         try {
             let totalPages = Math.ceil(total / limit)

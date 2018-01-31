@@ -8,7 +8,8 @@ const monthly = async (req, res, next) => {
     const endOfMonth = moment(date).endOf('month').toDate()
 
     try {
-        let result = {}
+        let result = { income: [], expenses: [] }
+
         const entries = await Entry.find({
             date: {
                 $gt: startOfMonth,
