@@ -11,8 +11,8 @@ const UserSchema = new Schema({
     updated: { type: Date, default: Date.now },
     password: { type: String },
     email: { type: String, unique: true, required: true, index: true },
-    income: Number,
-    expenses: Number,
+    income: { type: Number, default: 0 },
+    expenses: { type: Number, default: 0 },
     role: { type: String, enum: ['user', 'admin'], default: 'user' },
     is_active: { type: Boolean, default: true }
 }, { toJSON: { virtuals: true } }) //Set virtuals to true
@@ -91,10 +91,12 @@ UserSchema.method({
     },
 
     increaseBalance ({ type, amount } = {}) {
+        const user = this
+
         if ('income' === type) {
-            this.income += parseFloat(amount)
+            user.income += amount
         } else {
-            this.expenses += parseFloat(amount)
+            user.expenses += amount
         }
         return this.save()
     },

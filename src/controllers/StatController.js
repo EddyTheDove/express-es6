@@ -16,6 +16,7 @@ const monthly = async (req, res, next) => {
                 $lte: endOfMonth
             }
         })
+        .where('owner').equals(req.user._id)
         .select('amount type')
         .populate('sub', 'name')
         .populate('category', 'name colour')

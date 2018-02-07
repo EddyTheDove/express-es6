@@ -9,7 +9,7 @@ import { Sub, User, Entry, Category } from '../models'
 const store = async (req, res, next) => {
     const entry = new Entry({
         type: req.body.type,
-        amount: req.body.amount,
+        amount: parseFloat(req.body.amount),
         description: req.body.description,
         created: moment(),
         date: req.body.date,
@@ -21,6 +21,7 @@ const store = async (req, res, next) => {
 
     try {
         const savedEntry = await entry.save()
+
         const user = req.user
         const balance = await user.increaseBalance({
             type: savedEntry.type,
