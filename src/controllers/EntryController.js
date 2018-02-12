@@ -75,15 +75,19 @@ const userEntries = async (req, res, next) => {
     }
 }
 
+
 /**
- * Delete user.
- * @returns {User}
+ * Delete an entry
  */
- function remove(req, res, next) {
-     const entry = req.entry;
-     entry.remove()
-     .then(deleted => res.json(deleted))
-     .catch(e => next(e));
+const remove = async (req, res, next) => {
+     try {
+         await Entry.remove(req.params.id)
+         return res.json('OK')
+     }
+     catch (e) {
+         console.log('Query error => ', e)
+         return res.status(500).send(e)
+     }
  }
 
 export const EntryController = { store, list, remove, userEntries }

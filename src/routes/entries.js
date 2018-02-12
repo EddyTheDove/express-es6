@@ -8,4 +8,7 @@ router.route('/')
 .get(EntryController.userEntries)
 .post(entryValidator.store, EntryController.store)
 
+router.route('/:id')
+.delete(EntryController.remove)
+
 export default router

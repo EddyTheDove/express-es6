@@ -35,6 +35,10 @@ EntrySchema.statics = {
         .populate('category', '_id name')
         .exec()
     },
+
+    remove (id) {
+        return this.findByIdAndRemove(id).exec()
+    }
 }
 
 export default mongoose.model('Entry', EntrySchema)
