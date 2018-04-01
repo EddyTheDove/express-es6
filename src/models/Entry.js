@@ -12,7 +12,7 @@ const EntrySchema = new Schema({
     sub: { type: Schema.Types.ObjectId, ref: 'Sub' },
     owner: { type: Schema.Types.ObjectId, ref: 'User' },
     category: { type: Schema.Types.ObjectId, ref: 'Category' }
-})
+}, { toJSON: { virtuals: true } })
 
 // methods are avaialable on the document
 EntrySchema.method({})

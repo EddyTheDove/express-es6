@@ -81,7 +81,11 @@ const userEntries = async (req, res, next) => {
  */
 const remove = async (req, res, next) => {
      try {
-         await Entry.remove(req.params.id)
+         const entry = await Entry.get(req.params.id)
+         const user = req.user
+
+         await user.decreaseBalance({ type: entry.type, amount: entry.amount })
+         entry.remove()
          return res.json('OK')
      }
      catch (e) {

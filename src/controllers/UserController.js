@@ -82,6 +82,25 @@ const userEntries = async (req, res, next) => {
     }
 }
 
+
+const balance = async (req, res, next) => {
+    const user = req.user
+
+    try {
+        const result = await User.entries({ id: user.id })
+
+        if (result.entries) {
+            const expenses = result.entries.filter(e => e.type === 'expense').reduce((a, b) => a + b.amount, 0)
+            const incomes = result.entries.filter(e => e.type === 'income').reduce((a, b) => a + b.amount, 0)
+            return res.json({ expenses, incomes, total: incomes - expenses })
+        }
+
+        return res.json({ expenses: 0, incomes: 0, total: 0 })
+    } catch (e) {
+        return res.status(500).send(e)
+    }
+}
+
 /**
  * Delete user.
  * @returns {User}
@@ -93,4 +112,4 @@ const userEntries = async (req, res, next) => {
      .catch(e => next(e));
  }
 
-export const UserController = { load, get, store, update, list, remove }
+export const UserController = { load, get, store, update, list, remove, balance }

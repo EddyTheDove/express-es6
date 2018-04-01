@@ -101,6 +101,17 @@ UserSchema.method({
         return this.save()
     },
 
+    decreaseBalance ({ type, amount } = {}) {
+        const user = this
+
+        if ('income' === type) {
+            user.income -= amount
+        } else {
+            user.expenses -= amount
+        }
+        return this.save()
+    },
+
     response () {
         return {
             id: this._id,
@@ -113,6 +124,10 @@ UserSchema.method({
             role: this.role,
             is_active: this.is_active
         }
+    },
+
+    in () {
+        return this.entries
     }
 })
 
